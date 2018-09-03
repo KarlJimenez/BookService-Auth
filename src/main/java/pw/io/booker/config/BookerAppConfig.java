@@ -3,6 +3,7 @@ package pw.io.booker.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import pw.io.booker.aop.AuthenticationAspect;
 import pw.io.booker.repo.AuthenticationRepository;
 import pw.io.booker.repo.CustomerRepository;
 import pw.io.booker.repo.ImageRepository;
@@ -31,6 +32,11 @@ public class BookerAppConfig {
 	public AuthenticationService authenticationService(AuthenticationRepository authenticationRepository, 
 			CustomerRepository customerRepository, TokenCreator tokenCreator) {
 		return new AuthenticationService(authenticationRepository, customerRepository, tokenCreator);
+	}
+	
+	@Bean
+	public AuthenticationAspect authenticationAspect(AuthenticationService authenticationService) {
+		return new AuthenticationAspect(authenticationService);
 	}
 	
 	@Bean
