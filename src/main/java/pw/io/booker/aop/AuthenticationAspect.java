@@ -39,11 +39,11 @@ public class AuthenticationAspect {
 	
 	@Before("execution(* pw.io.booker.service..*(..))")
 	public void logBeforeMethod(JoinPoint joinPoint) {
-		logger.info("Values before the method - " + joinPoint.getSignature().getName());
+		logger.info("Method " + joinPoint.getSignature().getName() + " has started.");
 	}
 	
 	@After("execution(* pw.io.booker.service..*(..))")
 	public void logAfterMethod(JoinPoint joinPoint) {
-		logger.info("Values after the method - " + joinPoint.getSignature().getName());
+		logger.info("Method " + joinPoint.getSignature().getName() + " has ended.");
 	}
 }
