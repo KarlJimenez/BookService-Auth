@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,7 +28,7 @@ public class CustomerController {
 	}
 
 	@GetMapping
-	public List<Customer> getAll() {
+	public List<Customer> getAll(@RequestHeader("Authentication-token") String token) {
 		return customerService.findAll();
 	}
 
@@ -37,27 +38,27 @@ public class CustomerController {
 	}
 
 	@PutMapping
-	public List<Customer> updateAll(@RequestBody List<Customer> customers) {
+	public List<Customer> updateAll(@RequestBody List<Customer> customers, @RequestHeader("Authentication-token") String token) {
 		return customerService.updateAll(customers);
 	}
 
 	@DeleteMapping
-	public List<Customer> deleteAll(@RequestParam("customerIdList") List<Integer> customerIdList) {
+	public List<Customer> deleteAll(@RequestParam("customerIdList") List<Integer> customerIdList, @RequestHeader("Authentication-token") String token) {
 		return customerService.deleteAll(customerIdList);
 	}
 
 	@GetMapping("/{customerId}")
-	public Customer getCustomer(@PathVariable("customerId") int customerId) {
+	public Customer getCustomer(@PathVariable("customerId") int customerId, @RequestHeader("Authentication-token") String token) {
 		return customerService.getCustomer(customerId);
 	}
 
 	@PutMapping("/{customerId}")
-	public Customer updateCustomer(@PathVariable("customerId") int customerId, @RequestBody Customer customer) {
+	public Customer updateCustomer(@PathVariable("customerId") int customerId, @RequestBody Customer customer, @RequestHeader("Authentication-token") String token) {
 		return customerService.updateCustomer(customerId, customer);
 	}
 
 	@DeleteMapping("/{customerId}")
-	public Customer deleteCustomer(@PathVariable("customerId") int customerId) {
+	public Customer deleteCustomer(@PathVariable("customerId") int customerId, @RequestHeader("Authentication-token") String token) {
 		return customerService.deleteCustomer(customerId);
 	}
 }
